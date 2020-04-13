@@ -1,20 +1,18 @@
 pipeline {
     agent any
     stages{
-        stage('Init'){
-            steps {
-                echo 'Initialization in progress.....'
-            }            
-        } 
         stage('Build'){
             steps {
                 echo 'Build in progress....'
+                sh 'mvn clean package'
             }            
         }
-        stage('Deploy'){
-            steps {
-                echo 'Deployment in progres...'
-            }            
-        }  
+        post {
+            success {
+              echo ' Now archiving .....'
+              archiveArtifacts artificats: '**/target/*.war'
+            } 
+        
+        }       
     }
 }
