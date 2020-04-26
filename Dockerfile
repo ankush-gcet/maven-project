@@ -1,11 +1,10 @@
 # Take a base image
-FROM alpine
-
+FROM tomcat:8.0-alpine
 
 # Install Dependencies
 
-RUN apk add --update redis
+ADD webapp.war /usr/local/tomcat/webapps/
 
 # Execute program
 
-CMD ["redis-server"]
+CMD ["catalina.sh", "run"]
